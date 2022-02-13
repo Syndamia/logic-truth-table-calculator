@@ -121,7 +121,9 @@ function prettyPrint(string) {
 
 // Transforms a piece of propositional logic into javascript code literal
 function parse(logic) {
-
+    // Parse paranthesis
+    logic = replaceParanthesis(logic, parse);
+    
     // Then
     /**
      * This RegExp has two capture groups. 
@@ -136,9 +138,6 @@ function parse(logic) {
     logic = logic.replaceAll(regularExpressions.thenWrap, (whole, p1, p2) => {
         return '!(' + p1.trim() + ') || (' + p2.trim() + ')';
     } )
-
-    // Parse paranthesis
-    logic = replaceParanthesis(logic, parse);
 
     return logic
         // Not
